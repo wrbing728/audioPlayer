@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link href="css/base.css" rel="stylesheet">
+  <link href="css/album.css" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <div class="wrap">
+    <div class="page-top">
+      <div class="duotin-ads">多听FM:全国最大的音频聚合平台1</div>
+      <div class="album-cover clearfix">
+        <input type="hidden" value="images/big.jpg" id="img-src">
+        <!-- <canvas id="canvas">不支持canvas</canvas> -->
+        <div class="img-holder"></div>
+        <a href="javascript:;" class="btn btn-control btn-play" id="btn-control"></a>
+      </div>
+      <div class="album-caption" id="album-caption">
+        <p class="primary">曲黎到脚话健康</p>
+        <p>飞鱼秀</p>
+      </div>
+      <audio id="audio"></audio>
+      <p class="media-time"><span class="current-time"  id="has-played">00:00:00</span> / <span class="total-time" id="total-time">55:09</span></p>
+      <div class="media-player" id="media-player">
+        <div class="play-bar" id="play-bar"></div>
+        <div class="has-played" id="play-on">
+          <div class="dot-box" id="dot-box"><a href="javascript:;" class="btn btn-play-dot" id="play-dot"></a></div>
+        </div>
+      </div>
+    </div>
+    <div class="page-mid">
+      <div class="album-intro">
+        <p class="list-caption">专辑简介</p>
+        <p class="intro-content">唐七公子“三生三世”系列的第二部，故事讲述青丘帝姬凤九和帝君东华的爱恨纠葛。两千年的执念，唐七公子和帝唐七</p>
+      </div>
+      <div class="album-list" id="album-list">
+        <p class="list-caption">节目列表</p>
+        <div class="list-item" data-media-src="images/media.mp3">
+          <p class="list-title primary"><span class="playing"></span>曲黎敏-从头到脚话健康</p>
+          <p class="caption-small">播放次数 <span>22222</span></p>
+          <p class="caption-small">时长 <span>00:04:54</span></p>
+        </div>
+        <div class="list-item" data-media-src="images/media.mp3">
+          <p class="list-title"><span></span>曲黎敏-从头到脚话健康</p>
+          <p class="caption-small">播放次数 <span>22222</span></p>
+          <p class="caption-small">时长 <span>00:04:54</span></p>
+        </div>
+      </div>
+      <div class="loading" id="loading"></div>
+    </div>
+    <div class="page-bottom">
+      <a href="javascript:;" class="btn btn-opening" id="btn-opening">打开多听订阅专辑</a>
+    </div>
+    <div class="popup" id="popup">错误信息</div>
+  </div>
+  <script>
+    window.oPageConfig = {
+      oUrl: {
+        contentList: 'trackList'
+      },
+      oData: {
+        albumId: 11111,
+        scrollLock: false,
+        page: 1,
+        hasNext: false,
+        pageSize: 20
+      }
+    }
+  </script>
+  <script src="js/Zepto.js"></script>
+  <script src="js/album.js"></script>
+</body>
+</html>

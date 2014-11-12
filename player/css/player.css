@@ -1,0 +1,129 @@
+@font-face {
+  font-family: 'icon';
+  src:url('../fonts/icon.eot?');
+  src:url('../fonts/icon.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/icon.woff?') format('woff'),
+    url('../fonts/icon.ttf?') format('truetype'),
+    url('../fonts/icon.svg?#icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.toggle {
+  display: inline-block;
+}
+.prev, .next, .play, .pause, .volume {
+  display: inline-block;
+  font-family: icon;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  margin: 10px 10px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color:rgba(255,255,255,0);
+}
+.volume {
+  position: relative;
+  border: none;
+}
+.vol {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 80px;
+}
+.vol-bg {
+  position: absolute;
+  top: 48%;
+  width: 100%;
+  height: 2px;
+  margin-left: 20px;
+  background: #eee;
+}
+.vol-val {
+  position: absolute;
+  top: 48%;
+  width: 50px;
+  height: 2px;
+  margin-left: 20px;
+  background: #666;
+}
+.media {
+  height: 50px;
+}
+.media-player {
+  position: relative;
+  height: 40px;
+  line-height: 27px;
+}
+.media-time {
+  font-size: 10px;
+  padding-right: 10px;
+  text-align: right;
+  color: #7e7e81;
+}
+.media-player progress {
+  width: 100%;
+  height: 2px;
+  color: #ff4200;
+  border: none;
+  background-color: #dedede;
+}
+.media-player progress::-moz-progress-bar {
+  background: #ff4200;
+}
+.media-player progress::-webkit-progress-bar {
+  background: #dedede;
+}
+.media-player progress::-webkit-progress-value {
+  background: #ff4200;
+}
+.media-player .dot-box {
+  position: absolute;
+  top: -19px;
+  right: -17px;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  line-height: 16px;
+  padding: 11px;
+  padding-right: 0;
+  margin-right: 11px;
+}
+.media-player .btn-play-dot {
+  width: 12px;
+  height: 12px;
+  margin-bottom: 3px;
+  border-radius: 50%;
+  background: #ff4200;
+  -webkit-filter: blur(1px);
+     -moz-filter: blur(1px);
+      -ms-filter: blur(1px);
+          filter: blur(1px);
+}
+.play-bar {
+  position: absolute;
+  top: 70%;
+  width: 100%;
+  height: 3px;
+  margin-top: -1px;
+  color: #ff4200;
+  border: none;
+  background-color: #dedede;
+}
+.play-on, .has-loaded {
+  position: absolute;
+  top: 70%;
+  left: -100%;
+  width: 100%;
+  height: 3px;
+  margin-left: 6px;
+  margin-top: -1px;
+  background: #ff4200;
+}
+.has-loaded {
+  background: #f8e4d7;
+}

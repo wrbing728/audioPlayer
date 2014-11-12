@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link href="css/base.css" rel="stylesheet">
+  <link href="css/album.css" rel="stylesheet">
+  <link href="css/player.css" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <div class="wrap">
+    <div class="page-top">
+      <div class="album-caption" id="album-caption">
+        <p class="primary">曲黎到脚话健康</p>
+        <p>飞鱼秀</p>
+      </div>
+      <audio id="audio"></audio>
+    </div>
+    <div class="popup" id="popup">错误信息</div>
+  </div>
+  <script>
+    window.oPageConfig = {
+      oUrl: {
+        contentList: 'trackList'
+      },
+      oData: {
+        albumId: 11111,
+        scrollLock: false,
+        page: 1,
+        hasNext: false,
+        pageSize: 20
+      }
+    }
+  </script>
+  <script src="js/Zepto.js"></script>
+  <script src="js/debug.min.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/album.js"></script>
+</body>
+</html>

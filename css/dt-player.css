@@ -1,0 +1,76 @@
+* {
+        margin: 0;
+    }
+.audiojs {
+    position: relative;
+    width: 60%;
+    height: 40px;
+}
+.audiojs .play-pause {
+    position: absolute;
+    top: -9px;
+    width: 35px;
+}
+.audiojs .play {
+    margin: 0;
+    width: 32px;
+    height: 32px;
+    background: url(http://c4.duotin.com/2014/podcast/images/btn_play_pause.png) no-repeat 0 0;
+}
+.audiojs .play:hover {
+    background: url(http://c4.duotin.com/2014/podcast/images/btn_play_pause.png) no-repeat -34px 0;
+}
+.audiojs .pause {
+    display: none;
+    margin: 0;
+    width: 32px;
+    height: 32px;
+    background: url(http://c4.duotin.com/2014/podcast/images/btn_play_pause.png) no-repeat 0 -34px;
+}
+.audiojs .pause:hover {
+    background: url(http://c4.duotin.com/2014/podcast/images/btn_play_pause.png) no-repeat -34px -34px;
+}
+.audiojs .loading {
+    display: none;
+    margin: 0;
+    width: 32px;
+    height: 32px;
+    background: url(http://c4.duotin.com/2014/podcast/images/loading.gif) no-repeat 0 0;
+    background-size: cover;
+}
+.audiojs .play-handle {
+    width: 12px;
+    height: 12px;
+    background: red;
+    border-radius: 50%;
+    float: right;
+    position: absolute;
+    left: 35px;
+    top: -3px;
+}
+.audiojs .scrubber {
+    background: #fff;
+    height: 20px;
+    overflow: visible;
+    width: 100%;
+    border-radius:3px;
+    margin: 18px 10px 10px 40px;
+    border-top: 0;
+}
+.audiojs .progress {
+    position: absolute;
+    background: #ff4200;
+    height: 5px;
+    top: 0px;
+}
+.audiojs .time {
+    display: none;
+}
+.audiojs .loaded {
+    width: 100%;
+    background: #dedede;
+    height: 5px;
+}
+.audiojs .error {
+    display: none;
+}

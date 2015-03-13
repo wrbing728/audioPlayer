@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="nouislider/jquery.nouislider.min.css">
+    <style>
+        * {
+            margin: 0;
+        }
+        a,img,button,input,textarea {
+            -webkit-tap-highlight-color:rgba(255,255,255,0);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .audiojs {
+            position: relative;
+            width: 60%;
+            height: 40px;
+            margin: 20px auto;
+            padding: 0;
+        }
+        .audiojs .play-pause {
+            position: absolute;
+            top: 4px;
+            width: 35px;
+        }
+        .audiojs .play {
+            margin: 0;
+            width: 32px;
+            height: 32px;
+            background: url(http://c4.duotin.com/2014/podcast/images/btn_play_pause.png) no-repeat 0 0;
+        }
+        .audiojs .play:hover {
+            background: url(http://c4.duotin.com/2014/podcast/images/btn_play_pause.png) no-repeat -34px 0;
+        }
+        .audiojs .pause {
+            display: none;
+            margin: 0;
+            width: 32px;
+            height: 32px;
+            background: url(http://c4.duotin.com/2014/podcast/images/btn_play_pause.png) no-repeat 0 -34px;
+        }
+        .audiojs .pause:hover {
+            background: url(http://c4.duotin.com/2014/podcast/images/btn_play_pause.png) no-repeat -34px -34px;
+        }
+        .audiojs .loading {
+            display: none;
+            margin: 0;
+            width: 32px;
+            height: 32px;
+            background: url(http://c4.duotin.com/2014/podcast/images/loading.gif) no-repeat 0 0;
+            background-size: cover;
+        }
+        .audiojs .time {
+            display: none;
+        }
+        .noUi-connect{
+            position: absolute;
+            width: 100%;
+            top: 17px;
+            left: 40px;
+            height: 5px;
+            background-color: #FF4200;
+        }
+        .noUi-base:hover{
+            cursor: pointer;
+        }
+        .noUi-horizontal .noUi-handle{
+            top: -4px;
+            width: 12px;
+            height: 12px;
+            background: #ff4200;
+            border-radius: 50%;
+            left: -3px;
+            border: none;
+            box-shadow: none;
+            -moz-border-radius:50%;
+            -webkit-border-radius:50%;
+            behavior:url('http://www.duotin.com/hack_cross_domain/pie-1.0.0/PIE.htc');
+        }
+        .noUi-handle:after, .noUi-handle:before{
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            width: 35px;
+            height: 40px;
+            content: '';
+            opacity: 0;
+        }
+        .noUi-handle:after, .noUi-handle:before:hover{
+            cursor: pointer;
+        }
+        .noUi-background{
+            background: #d6d6d6;
+        }
+    </style>    
+</head>
+<body>
+    <div class="audiojs">
+        <audio src="http://c202.duotin.com/M01/3F/37/wKgB3FRjKI6AADVmAITXR8UaGdM407.mp3" id="audio0"></audio>
+        <div class="play-pause">
+            <p class="play"></p>
+            <p class="pause"></p>
+            <p class="loading"></p>
+        </div>
+        <div class="nouislider"></div>
+        <div class="time">
+            <em class="played">00:00</em>/<strong class="duration">36:16</strong>
+        </div>
+    </div>
+    <div class="audiojs">
+        <audio src="http://c202.duotin.com/M03/3F/13/wKgB3FRgwiqAO6FfAA5tlNzWmZ0589.mp3" id="audio1"></audio>
+        <div class="play-pause">
+            <p class="play"></p>
+            <p class="pause"></p>
+            <p class="loading"></p>
+        </div>
+        <div class="nouislider"></div>
+        <div class="time">
+            <em class="played">00:00</em>/<strong class="duration">36:16</strong>
+        </div>
+    </div>
+    
+    <script src="js/Zepto.js"></script>
+    <script src="nouislider/jquery.nouislider.all.min.js"></script>
+    <script src="js/debug.min.js"></script>
+    <script>
+    console.log($('audio'));
+        $(function() {
+            var ui = {
+                $audio: $('audio'),
+                $nouislider: $('.nouislider'),
+                $playControl: $('.play-pause')
+            };
+            var oPage = {
+                audioHash: {},
+                curAudio: null,
+                parent: null,
+                playMutex: true,
+                init: function() {
+                    this.view();
+                    this.listen();
+                },
+                view: function() {
+                    var self = this;
+
+                    for (var i = 0; i < ui.$audio.length; i++) {
+                        self.audioIsLoaded(i, ui.$audio[i]);
+                    }
+
+                    ui.$nouislider.noUiSlider({
+                        start: [0],
+                        connect: 'lower',
+                        range: {
+                            'min': 0,
+                            'max': ui.$nouislider.width()
+                        }
+                    });
+                    ui.$nouislider.on({
+                        slide: function(){
+                            var $this = $(this),
+                                percent = $this.val() / $this.width(),
+                                parent = $this.parent(),
+                                id = $this.siblings('audio').attr('id');
+                            self.playMutex = false;
+                        },
+                        set: function(){
+                        },
+                        change: function(){
+                            var $this = $(this),
+                                parent = $this.parent(),
+                                id = $this.siblings('audio').attr('id'),
+                                percent = $this.val() / $this.width();
+                            self.playMutex = true;
+                            self.audioHash[id].audio.currentTime = percent * self.audioHash[id].duration;
+                        }
+                    });
+                },
+                listen: function() {
+                    var self = this;
+
+                    ui.$audio.on('loadedmetadata', function() {
+                        for (var i in self.audioHash) {
+                            self.audioHash[i].duration = self.audioHash[i].audio.duration;
+                            $(self.audioHash[i].audio).find('.duration').text();
+                        }
+                    })
+
+                    // 播放监听
+                    ui.$audio.on('timeupdate', function() {
+                        var $this = $(this),
+                            percent = self.curAudio.audio.currentTime/self.curAudio.duration;
+                            // formatedTime = self.formatTime(percent);
+                        if (self.playMutex) {
+                            self.curAudio.slider.val(percent * ui.$nouislider.width());
+                        }
+                    });
+
+                    // 播放暂停控制
+                    ui.$playControl.on('click', function() {
+                        var $this = $(this),
+                            id = $this.siblings('audio').attr('id');
+                        self.parent = $this.parent();
+                        self.curAudio = self.audioHash[id];
+                        if (self.curAudio.audio.paused) {
+                            self.curAudio.audio.play();
+                            for (var i in self.audioHash) {
+                                if (i != id) {
+                                    self.audioHash[i].audio.pause();
+                                }
+                            }
+                        } else {
+                            self.curAudio.audio.pause();
+                        }
+                    });
+                    ui.$audio.on('play', function(e) {
+                        $(e.target).parent().find('.play').hide();
+                        $(e.target).parent().find('.pause').show();
+                    });
+                    ui.$audio.on('pause', function(e) {
+                        $(e.target).parent().find('.pause').hide();
+                        $(e.target).parent().find('.play').show();
+                    })
+                },
+                // 格式化时间
+                formatTime: function(duration) {
+                    var self = this,
+                        t = duration,
+                        h = Math.floor(t / 3600),
+                        m = Math.floor(t % 3600 / 60),
+                        s = Math.floor(t % 60);
+                    return (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + ( s < 10 ? '0' + s : s);
+                },
+                // 字符串时间转换为数字
+                strToTime: function(str) {
+                    var self = this,
+                        timeArr = str.split(':'),
+                        time = 0;
+                    time += timeArr[0] * 3600 + timeArr[1] * 60 + +timeArr[2];
+                    return time;
+                },
+                audioIsLoaded: function(i, audio) {
+                    var self = this,
+                        timer;
+
+                    self.audioHash['audio'+i] = {
+                        audio: audio,
+                        slider: $(audio).parent().find('.nouislider'),
+                        duration: audio.duration,
+                        currentTime: audio.currentTime
+                    };
+                }
+            };
+            oPage.init(); 
+        });
+    </script>
+</body>
+</html>

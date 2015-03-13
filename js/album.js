@@ -22,7 +22,7 @@ $(function() {
                 $audio: ui.$audio,
                 srcUrl: [
                     {
-                        url: '../media.mp3',
+                        url: 'http://c202.duotin.com/M03/3F/13/wKgB3FRgwiqAO6FfAA5tlNzWmZ0589.mp3',
                         duration: '00:04:54'
                     },
                     {
